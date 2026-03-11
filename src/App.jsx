@@ -1,12 +1,16 @@
 import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
+import TechStars from './components/TechStars'
 
 function AppContent() {
   return (
     <>
-      <Navbar />
-      <Home />
+      <TechStars />
+      <div className="relative z-10">
+        <Navbar />
+        <Home />
+      </div>
     </>
   )
 }

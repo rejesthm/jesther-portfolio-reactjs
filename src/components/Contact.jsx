@@ -5,9 +5,9 @@ import SectionReveal from './SectionReveal'
 import { inViewOptions } from '../utils/animations'
 
 const links = [
-  { icon: FaEnvelope, label: 'Email', href: 'mailto:hello@example.com', value: 'hello@example.com' },
-  { icon: FaGithub, label: 'GitHub', href: 'https://github.com', value: 'github.com/username' },
-  { icon: FaLinkedin, label: 'LinkedIn', href: 'https://linkedin.com', value: 'linkedin.com/in/username' },
+  { icon: FaEnvelope, label: 'Email', href: 'mailto:rejesthm@gmail.com', value: 'rejesthm@gmail.com' },
+  { icon: FaGithub, label: 'GitHub', href: 'https://github.com/rejesthm', value: 'github.com/rejesthm' },
+  { icon: FaLinkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/jesther-jordan-minor-73234813a/', value: 'linkedin.com/in/jesther-jordan-minor' },
 ]
 
 export default function Contact() {

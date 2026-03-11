@@ -14,7 +14,7 @@ export default function Footer() {
         </p>
         <div className="flex gap-6">
           <motion.a
-            href="https://github.com"
+            href="https://github.com/rejesthm"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center min-w-[44px] min-h-[44px] text-zinc-400 hover-gradient-text transition-colors"
@@ -25,7 +25,7 @@ export default function Footer() {
             <FaGithub size={22} />
           </motion.a>
           <motion.a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/jesther-jordan-minor-73234813a/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center min-w-[44px] min-h-[44px] text-zinc-400 hover-gradient-text transition-colors"
