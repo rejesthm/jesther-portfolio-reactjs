@@ -54,7 +54,7 @@ export default function Hero() {
             variants={staggerItem}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight"
           >
-            Your Name
+            Jesther Jordan Minor
           </motion.h1>
           <motion.p
             variants={staggerItem}

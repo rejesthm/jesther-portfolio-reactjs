@@ -64,7 +64,7 @@ export default function TechStack() {
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
-          className="mb-12"
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -72,7 +72,7 @@ export default function TechStack() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Tech Stack
           </h2>
-          <p className="text-zinc-400 max-w-xl">
+          <p className="text-zinc-400 max-w-xl mx-auto">
             Technologies and frameworks I work with to build modern applications.
           </p>
         </motion.div>
