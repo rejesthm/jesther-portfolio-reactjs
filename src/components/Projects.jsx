@@ -1,6 +1,9 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import LazyImage from './LazyImage'
+import SectionReveal from './SectionReveal'
+import { staggerContainer, staggerItem, inViewOptions } from '../utils/animations'
 
 const projects = [
   {
@@ -29,32 +32,12 @@ const projects = [
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 100, damping: 20 },
-  },
-}
-
 export default function Projects() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, inViewOptions)
 
   return (
-    <section
+    <SectionReveal
       id="projects"
       ref={ref}
       className="py-24 px-6 md:px-12 lg:px-24"
@@ -79,23 +62,23 @@ export default function Projects() {
 
         <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
           {projects.map((project) => (
             <motion.article
               key={project.title}
-              variants={cardVariants}
+              variants={staggerItem}
               className="group rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors"
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <div className="relative overflow-hidden aspect-video">
-                <img
+                <LazyImage
                   src={project.image}
                   alt={project.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="group-hover:scale-105 transition-transform duration-500"
+                  fetchPriority="low"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
@@ -117,30 +100,34 @@ export default function Projects() {
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <a
+                  <motion.a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
+                    whileHover={{ scale: 1.05, x: 2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <FaGithub size={18} />
                     GitHub
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
+                    whileHover={{ scale: 1.05, x: 2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <FaExternalLinkAlt size={14} />
                     Live Demo
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </motion.article>
           ))}
         </motion.div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

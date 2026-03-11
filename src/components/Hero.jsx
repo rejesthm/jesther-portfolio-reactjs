@@ -1,68 +1,76 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import FloatingElements from './FloatingElements'
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 100, damping: 20 },
-  },
-}
+import { staggerContainer, staggerItem } from '../utils/animations'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 export default function Hero() {
+  const sectionRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const shouldReduceMotion = useReducedMotion()
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
+  const orbY = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    [0, shouldReduceMotion || isMobile ? 0 : 80]
+  )
+  const orbOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 0.2])
+
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <section className="min-h-screen flex items-center pt-20 pb-16 px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center pt-20 pb-16 px-6 md:px-12 lg:px-24 overflow-hidden"
+    >
+      {/* Parallax background orb */}
+      <motion.div
+        className="absolute -top-40 -right-40 w-80 h-80 md:w-96 md:h-96 rounded-full bg-indigo-500/20 blur-[100px] pointer-events-none"
+        style={{ y: orbY, opacity: orbOpacity }}
+        aria-hidden
+      />
+      <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left: Content */}
         <motion.div
           className="order-2 lg:order-1"
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           animate="visible"
         >
           <motion.p
-            variants={itemVariants}
+            variants={staggerItem}
             className="gradient-text font-medium mb-2"
           >
             Hi, I&apos;m
           </motion.p>
           <motion.h1
-            variants={itemVariants}
+            variants={staggerItem}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight"
           >
             Your Name
           </motion.h1>
           <motion.p
-            variants={itemVariants}
+            variants={staggerItem}
             className="text-xl md:text-2xl gradient-text font-semibold mb-4"
           >
             Software Engineer
           </motion.p>
           <motion.p
-            variants={itemVariants}
+            variants={staggerItem}
             className="text-zinc-400 text-lg mb-8 max-w-lg"
           >
             I build exceptional digital experiences that live on the web. Specializing in
             creating responsive, performant applications with modern technologies.
           </motion.p>
           <motion.div
-            variants={itemVariants}
+            variants={staggerItem}
             className="flex flex-wrap gap-4"
           >
             <motion.button

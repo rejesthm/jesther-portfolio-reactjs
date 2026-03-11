@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+import SectionReveal from './SectionReveal'
+import { inViewOptions } from '../utils/animations'
 
 const links = [
   { icon: FaEnvelope, label: 'Email', href: 'mailto:hello@example.com', value: 'hello@example.com' },
@@ -10,7 +12,7 @@ const links = [
 
 export default function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, inViewOptions)
   const [formState, setFormState] = useState({ name: '', email: '', message: '' })
   const [errors, setErrors] = useState({})
 
@@ -39,7 +41,7 @@ export default function Contact() {
   }
 
   return (
-    <section
+    <SectionReveal
       id="contact"
       ref={ref}
       className="py-24 px-6 md:px-12 lg:px-24"
@@ -74,19 +76,21 @@ export default function Contact() {
               Connect with me
             </h3>
             {links.map((link) => (
-              <a
+              <motion.a
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className="flex items-center gap-4 p-4 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 hover:bg-zinc-800/80 transition-colors group"
+                whileHover={{ scale: 1.02, x: 4 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <link.icon className="text-2xl gradient-text group-hover:scale-110 transition-transform" />
                 <div>
                   <div className="flex font-medium text-white">{link.label}</div>
                   <div className="text-sm text-zinc-400">{link.value}</div>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </motion.div>
 
@@ -163,6 +167,6 @@ export default function Contact() {
           </motion.form>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   )
 }

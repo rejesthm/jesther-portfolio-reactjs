@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useReducedMotion } from 'framer-motion'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 const lines = [
   { prefix: '~', text: 'npm run build', color: 'text-zinc-400' },
@@ -74,9 +75,31 @@ export default function FloatingElements() {
     offset: ['start start', 'end start'],
   })
   const shouldReduceMotion = useReducedMotion()
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, shouldReduceMotion ? 0 : 60])
+  const parallaxY = isMobile ? 30 : 60
+  const y = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    [0, shouldReduceMotion ? 0 : parallaxY]
+  )
+  const yParallaxSlow = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    [0, shouldReduceMotion ? 0 : parallaxY * 0.5]
+  )
   const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.25])
+
+  const floatingIcons = [
+    { top: '10%', left: '5%', size: 'w-8 h-8 md:w-10 md:h-10', duration: 3, rotate: 5 },
+    { top: '8%', right: '8%', left: 'auto', size: 'w-6 h-6 md:w-8 md:h-8', duration: 4, rotate: -8 },
+    { bottom: '25%', left: '2%', top: 'auto', size: 'w-7 h-7 md:w-9 md:h-9', duration: 5, rotate: 12 },
+    { bottom: '20%', right: '5%', top: 'auto', size: 'w-6 h-6 md:w-8 md:h-8', duration: 3.5, rotate: -5 },
+    { top: '35%', left: '5%', size: 'w-5 h-5 md:w-7 md:h-7', duration: 4.5, rotate: 8 },
+    { top: '30%', right: '3%', left: 'auto', size: 'w-6 h-6 md:w-8 md:h-8', duration: 3.2, rotate: -10 },
+  ]
+
+  const visibleIcons = isMobile ? floatingIcons.slice(0, 3) : floatingIcons
 
   return (
     <div
@@ -90,6 +113,36 @@ export default function FloatingElements() {
       >
         <div className="w-96 h-96 rounded-full bg-indigo-500/20 blur-[80px]" />
       </motion.div>
+
+      {/* Floating UI elements */}
+      {!shouldReduceMotion &&
+        visibleIcons.map((icon, i) => (
+          <motion.div
+            key={i}
+            className={`absolute ${icon.size} rounded-lg bg-zinc-700/50 border border-zinc-600/50 backdrop-blur-sm flex items-center justify-center pointer-events-none`}
+            style={{
+              top: icon.top,
+              bottom: icon.bottom,
+              left: icon.left,
+              right: icon.right,
+              y: yParallaxSlow,
+            }}
+            animate={{
+              y: [0, -6, 0],
+              rotate: [0, icon.rotate, -icon.rotate * 0.5, 0],
+              opacity: [0.6, 0.9, 0.6],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: icon.duration,
+              ease: 'easeInOut',
+            }}
+          >
+            <span className="text-xs text-zinc-400 font-mono">
+              {['{}', '</>', '•', '◆', '●', '[]'][i]}
+            </span>
+          </motion.div>
+        ))}
 
       {/* Terminal */}
       <motion.div
