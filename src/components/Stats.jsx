@@ -1,12 +1,28 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from "framer-motion";
+import { Briefcase, FolderGit2, Layers, Users } from "lucide-react";
 
 const stats = [
-  { value: '5+', label: 'Years Experience' },
-  { value: '50+', label: 'Projects Built' },
-  { value: '15+', label: 'Technologies Used' },
-  { value: '100+', label: 'Clients / Users' },
-]
+  {
+    icon: Briefcase,
+    value: "5+",
+    label: "Years Experience",
+  },
+  {
+    icon: FolderGit2,
+    value: "20+",
+    label: "Projects Built",
+  },
+  {
+    icon: Layers,
+    value: "15+",
+    label: "Technologies Used",
+  },
+  {
+    icon: Users,
+    value: "10+",
+    label: "Clients / Users",
+  },
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -17,46 +33,55 @@ const containerVariants = {
       delayChildren: 0.2,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4 },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
-}
+};
 
 export default function Stats() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
+    <section id="stats" className="py-20 lg:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
         >
-          {stats.map((stat) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              whileHover={{ scale: 1.03, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)' }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center"
-            >
-              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                {stat.value}
-              </div>
-              <div className="mt-2 text-gray-600 font-medium">{stat.label}</div>
-            </motion.div>
-          ))}
+          {stats.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={stat.label}
+                variants={itemVariants}
+                whileHover={{ scale: 1.02, y: -4 }}
+                className="bg-[#FAFAFA] rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-[#3B82F6]" />
+                  </div>
+                  <div>
+                    <p className="text-2xl lg:text-3xl font-bold text-[#1A1A1A]">
+                      {stat.value}
+                    </p>
+                    <p className="text-sm text-[#6B7280] font-medium">
+                      {stat.label}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

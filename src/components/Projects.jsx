@@ -1,44 +1,44 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
 
 const projects = [
   {
-    id: 1,
-    title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with real-time inventory, payment integration, and admin dashboard.',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-    github: 'https://github.com',
-    demo: 'https://example.com',
+    title: "E-Commerce Platform",
+    description:
+      "Full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    tech: ["React", "Node.js", "PostgreSQL"],
+    github: "https://github.com",
+    demo: "https://example.com",
   },
   {
-    id: 2,
-    title: 'Task Management App',
-    description: 'Collaborative task management with drag-and-drop, real-time updates, and team workspaces.',
-    tech: ['React', 'Firebase', 'TailwindCSS'],
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
-    github: 'https://github.com',
-    demo: 'https://example.com',
+    title: "Task Management App",
+    description:
+      "Collaborative task management tool with real-time updates, drag-and-drop, and team workspaces.",
+    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+    tech: ["React", "Firebase", "Tailwind"],
+    github: "https://github.com",
+    demo: "https://example.com",
   },
   {
-    id: 3,
-    title: 'Analytics Dashboard',
-    description: 'Real-time analytics dashboard with data visualization, charts, and export capabilities.',
-    tech: ['React', 'Python', 'PostgreSQL'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-    github: 'https://github.com',
-    demo: 'https://example.com',
+    title: "Analytics Dashboard",
+    description:
+      "Data visualization dashboard with interactive charts, filters, and export capabilities.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    tech: ["React", "D3.js", "Python"],
+    github: "https://github.com",
+    demo: "https://example.com",
   },
   {
-    id: 4,
-    title: 'Mobile Fitness App',
-    description: 'Cross-platform fitness tracking app with workout plans, progress tracking, and social features.',
-    tech: ['Flutter', 'Firebase', 'Dart'],
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop',
-    github: 'https://github.com',
-    demo: 'https://example.com',
+    title: "Mobile Fitness App",
+    description:
+      "Cross-platform fitness tracking app with workout plans, progress tracking, and social features.",
+    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=400&fit=crop",
+    tech: ["Flutter", "Firebase", "Dart"],
+    github: "https://github.com",
+    demo: "https://example.com",
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -46,52 +46,52 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
-}
+};
 
 export default function Projects() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
-
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-20 lg:py-28 bg-[#FAFAFA]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Projects</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            A selection of projects I&apos;ve built. Each one showcases different skills and technologies.
+          <h2 className="text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-[#6B7280] max-w-2xl mx-auto">
+            A selection of projects I've built using modern technologies and best
+            practices.
           </p>
         </motion.div>
 
         <motion.div
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project) => (
             <motion.article
-              key={project.id}
+              key={project.title}
               variants={itemVariants}
-              whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
-              className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-100"
             >
               <div className="aspect-video overflow-hidden">
                 <img
@@ -102,33 +102,39 @@ export default function Projects() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
-                <p className="mt-2 text-gray-600 text-sm">{project.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <h3 className="text-xl font-bold text-[#1A1A1A] mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-[#6B7280] text-sm mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded"
+                      className="px-2 py-1 text-xs font-medium bg-[#3B82F6]/10 text-[#3B82F6] rounded-md"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="mt-4 flex gap-3">
+                <div className="flex gap-4">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[#6B7280] hover:text-[#3B82F6] transition-colors"
                   >
+                    <Github className="w-4 h-4" />
                     GitHub
                   </a>
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[#6B7280] hover:text-[#3B82F6] transition-colors"
                   >
+                    <ExternalLink className="w-4 h-4" />
                     Live Demo
                   </a>
                 </div>
@@ -138,5 +144,5 @@ export default function Projects() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

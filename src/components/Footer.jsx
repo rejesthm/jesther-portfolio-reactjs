@@ -1,49 +1,49 @@
-import { motion } from 'framer-motion'
-import { SiGithub } from 'react-icons/si'
-import { FaLinkedin } from 'react-icons/fa6'
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+
+const socialLinks = [
+  { href: "https://github.com", icon: Github, label: "GitHub" },
+  { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
+  { href: "mailto:hello@example.com", icon: Mail, label: "Email" },
+];
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-gray-600 text-sm">
-          © {new Date().getFullYear()} Portfolio. All rights reserved.
-        </p>
-        <div className="flex items-center gap-6">
-          <motion.a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            className="text-gray-500 hover:text-gray-900 transition-colors"
-            aria-label="GitHub"
+    <footer className="bg-white border-t border-gray-100 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[#6B7280] text-sm">
+            © {new Date().getFullYear()} Portfolio. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            {socialLinks.map(({ href, icon: Icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#6B7280] hover:text-[#3B82F6] transition-colors"
+                aria-label={label}
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            ))}
+          </div>
+          <motion.button
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
           >
-            <SiGithub className="w-6 h-6" />
-          </motion.a>
-          <motion.a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            className="text-gray-500 hover:text-gray-900 transition-colors"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedin className="w-6 h-6" />
-          </motion.a>
+            <ArrowUp className="w-5 h-5" />
+            <span className="text-sm font-medium">Back to top</span>
+          </motion.button>
         </div>
-        <motion.button
-          onClick={scrollToTop}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
-        >
-          Back to top
-        </motion.button>
       </div>
     </footer>
-  )
+  );
 }

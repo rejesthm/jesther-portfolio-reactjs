@@ -1,15 +1,5 @@
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Footer from './components/Footer'
+import Home from "./pages/Home";
 
-function App() {
-  return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Navbar />
-      <Home />
-      <Footer />
-    </div>
-  )
+export default function App() {
+  return <Home />;
 }
-
-export default App

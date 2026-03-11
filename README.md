@@ -4,34 +4,54 @@ A modern, light-themed React portfolio website with professional SaaS-style land
 
 ## Features
 
-- **Hero Section**: Large headline, tagline, CTA buttons, and floating UI elements with parallax
-- **Stats Section**: Animated metric cards (Years Experience, Projects, Technologies, Clients)
-- **Projects Section**: Grid of portfolio projects with images, tech stack, and links
-- **Tech Stack Section**: Animated technology icons (React, Flutter, Node.js, Firebase, Docker, AWS, Python)
-- **Experience Section**: Timeline layout with animated reveal
-- **Contact Section**: Contact info and form with validation
+- **Hero Section** – Floating UI elements, parallax effects, phone mockup
+- **Stats** – Years of experience, projects, technologies, clients
+- **Projects** – Grid of portfolio projects with lazy-loaded images
+- **Tech Stack** – Animated technology cards (React, Flutter, Node.js, etc.)
+- **Experience** – Timeline layout with animated reveal
+- **Contact** – Form and social links
+- **Responsive** – Mobile, tablet, and desktop
+- **Accessibility** – Respects `prefers-reduced-motion` for users who prefer less animation
 
 ## Tech Stack
 
 - React 19
-- Vite
-- TailwindCSS
+- Vite 7
+- TailwindCSS 4
 - Framer Motion
-- react-icons
+- Lucide React
+- React Icons
 
-## Run Locally
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or pnpm
+
+### Installation
 
 ```bash
 npm install
+```
+
+### Run Locally
+
+```bash
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Build for Production
+### Build for Production
 
 ```bash
 npm run build
+```
+
+### Preview Production Build
+
+```bash
 npm run preview
 ```
 
@@ -58,7 +78,13 @@ src/
 
 ## Customization
 
-- Update your name, role, and tagline in `src/components/Hero.jsx`
-- Replace placeholder project data in `src/components/Projects.jsx`
-- Update experience entries in `src/components/Experience.jsx`
-- Add your email and social links in `src/components/Contact.jsx` and `src/components/Footer.jsx`
+- **Name & Role** – Edit `Hero.jsx` to update your name and tagline
+- **Stats** – Update values in `Stats.jsx`
+- **Projects** – Replace placeholder data in `Projects.jsx`
+- **Experience** – Edit the `experiences` array in `Experience.jsx`
+- **Contact** – Update email and social links in `Contact.jsx` and `Footer.jsx`
+- **Colors** – Accent color is `#3B82F6`; adjust in Tailwind classes or `index.css`
+
+## License
+
+MIT
