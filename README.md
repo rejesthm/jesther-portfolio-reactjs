@@ -1,37 +1,53 @@
-# Portfolio | Software Engineer
+# Portfolio - Software Engineer
 
-A modern, light-themed React portfolio website with professional SaaS-style landing page animations. Built with Vite, TailwindCSS, and Framer Motion.
-
-## Features
-
-- **Hero Section**: Large headline, tagline, CTA buttons, and floating UI elements with parallax
-- **Stats Section**: Animated metric cards (Years Experience, Projects, Technologies, Clients)
-- **Projects Section**: Grid of portfolio projects with images, tech stack, and links
-- **Tech Stack Section**: Animated technology icons (React, Flutter, Node.js, Firebase, Docker, AWS, Python)
-- **Experience Section**: Timeline layout with animated reveal
-- **Contact Section**: Contact info and form with validation
+A modern React portfolio website with professional landing page animations, custom cursor, and SaaS-style design.
 
 ## Tech Stack
 
-- React 19
-- Vite
-- TailwindCSS
-- Framer Motion
-- react-icons
+- **React 19** with Vite
+- **TailwindCSS 4** for styling
+- **Framer Motion** for animations
+- **React Icons** for icons
 
-## Run Locally
+## Features
+
+- Custom spring-physics cursor with hover scale and click ripple
+- Hero section with floating UI elements and parallax effects
+- Scroll-triggered section animations
+- Responsive design (mobile, tablet, desktop)
+- Accessibility: reduced motion support, aria-hidden on decorative elements
+- Dark mode professional palette
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
 
 ```bash
 npm install
+```
+
+### Run locally
+
+```bash
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Build for Production
+### Build for production
 
 ```bash
 npm run build
+```
+
+### Preview production build
+
+```bash
 npm run preview
 ```
 
@@ -39,7 +55,11 @@ npm run preview
 
 ```
 src/
+├── main.jsx           # App entry point
+├── App.jsx            # Root layout with CustomCursor, Navbar
+├── index.css          # Global styles, Tailwind
 ├── components/
+│   ├── CustomCursor.jsx
 │   ├── Navbar.jsx
 │   ├── Hero.jsx
 │   ├── FloatingElements.jsx
@@ -49,16 +69,13 @@ src/
 │   ├── Experience.jsx
 │   ├── Contact.jsx
 │   └── Footer.jsx
-├── pages/
-│   └── Home.jsx
-├── App.jsx
-├── main.jsx
-└── index.css
+└── pages/
+    └── Home.jsx
 ```
 
 ## Customization
 
-- Update your name, role, and tagline in `src/components/Hero.jsx`
-- Replace placeholder project data in `src/components/Projects.jsx`
-- Update experience entries in `src/components/Experience.jsx`
-- Add your email and social links in `src/components/Contact.jsx` and `src/components/Footer.jsx`
+- Update your name and content in `Hero.jsx`, `Footer.jsx`, and `Contact.jsx`
+- Replace placeholder project data in `Projects.jsx`
+- Update experience entries in `Experience.jsx`
+- Modify theme colors in `src/index.css` (`@theme` block)

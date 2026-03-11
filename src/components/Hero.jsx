@@ -17,77 +17,82 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { type: 'spring', stiffness: 100, damping: 20 },
   },
 }
 
 export default function Hero() {
-  return (
-    <section className="min-h-screen flex items-center pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Content */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="order-2 lg:order-1"
-          >
-            <motion.h1
-              variants={itemVariants}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight"
-            >
-              Hi, I&apos;m{' '}
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Your Name
-              </span>
-            </motion.h1>
-            <motion.p
-              variants={itemVariants}
-              className="mt-4 text-xl sm:text-2xl font-semibold text-gray-700"
-            >
-              Software Engineer
-            </motion.p>
-            <motion.p
-              variants={itemVariants}
-              className="mt-4 text-base sm:text-lg text-gray-600 max-w-xl"
-            >
-              I build scalable web applications and delightful user experiences with modern technologies.
-              Let&apos;s create something amazing together.
-            </motion.p>
-            <motion.div
-              variants={itemVariants}
-              className="mt-8 flex flex-wrap gap-4"
-            >
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
-              >
-                View Projects
-              </motion.a>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-semibold hover:border-gray-400 hover:bg-gray-50 transition-colors"
-              >
-                Contact Me
-              </motion.a>
-            </motion.div>
-          </motion.div>
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-          {/* Right: Floating elements */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="order-1 lg:order-2"
+  return (
+    <section className="min-h-screen flex items-center pt-20 pb-16 px-6 md:px-12 lg:px-24">
+      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Left: Content */}
+        <motion.div
+          className="order-2 lg:order-1"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p
+            variants={itemVariants}
+            className="text-indigo-400 font-medium mb-2"
           >
-            <FloatingElements />
+            Hi, I&apos;m
+          </motion.p>
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight"
+          >
+            Your Name
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="text-xl md:text-2xl text-indigo-300 font-semibold mb-4"
+          >
+            Software Engineer
+          </motion.p>
+          <motion.p
+            variants={itemVariants}
+            className="text-zinc-400 text-lg mb-8 max-w-lg"
+          >
+            I build exceptional digital experiences that live on the web. Specializing in
+            creating responsive, performant applications with modern technologies.
+          </motion.p>
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap gap-4"
+          >
+            <motion.button
+              onClick={() => scrollToSection('projects')}
+              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              View Projects
+            </motion.button>
+            <motion.button
+              onClick={() => scrollToSection('contact')}
+              className="px-6 py-3 rounded-lg border border-zinc-600 hover:border-indigo-500 hover:bg-indigo-500/10 text-white font-medium transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Contact Me
+            </motion.button>
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* Right: Floating elements */}
+        <motion.div
+          className="order-1 lg:order-2"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <FloatingElements />
+        </motion.div>
       </div>
     </section>
   )

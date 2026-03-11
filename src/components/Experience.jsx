@@ -3,101 +3,103 @@ import { motion, useInView } from 'framer-motion'
 
 const experiences = [
   {
-    id: 1,
     date: '2022 – Present',
     role: 'Senior Software Engineer',
     company: 'Tech Company Inc.',
-    description: 'Leading frontend architecture and mentoring junior developers. Built scalable React applications serving 1M+ users.',
+    description: 'Leading development of customer-facing web applications. Mentoring junior developers and implementing best practices for CI/CD pipelines.',
   },
   {
-    id: 2,
     date: '2020 – 2022',
     role: 'Software Engineer',
     company: 'Startup XYZ',
-    description: 'Developed full-stack features using React, Node.js, and PostgreSQL. Implemented CI/CD pipelines and improved deployment workflows.',
+    description: 'Built and maintained React applications with Firebase backend. Implemented real-time features and optimized performance for mobile users.',
   },
   {
-    id: 3,
     date: '2018 – 2020',
     role: 'Junior Developer',
     company: 'Agency ABC',
-    description: 'Built client websites and web applications. Collaborated with designers to deliver pixel-perfect implementations.',
+    description: 'Developed responsive websites and landing pages. Collaborated with designers to implement pixel-perfect UI components.',
   },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-}
-
-const itemVariants = (direction) => ({
-  hidden: { opacity: 0, x: direction * 50 },
-  visible: {
+const itemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: (i) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5 },
-  },
-})
+    transition: {
+      delay: i * 0.1,
+      type: 'spring',
+      stiffness: 100,
+      damping: 20,
+    },
+  }),
+}
 
 export default function Experience() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
+    <section
+      id="experience"
+      ref={ref}
+      className="py-24 px-6 md:px-12 lg:px-24"
+    >
+      <div className="max-w-7xl mx-auto">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-white mb-4"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Experience</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            My professional journey in software development.
-          </p>
-        </motion.div>
+          Experience
+        </motion.h2>
+        <motion.p
+          className="text-zinc-400 mb-16 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          My professional journey in software development.
+        </motion.p>
 
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="relative pl-8 md:pl-0"
-        >
+        <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 md:-translate-x-1/2" />
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-zinc-700" />
 
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              variants={itemVariants(index % 2 === 0 ? -1 : 1)}
-              className="relative flex gap-4 md:gap-8 mb-12 last:mb-0"
-            >
-              <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-indigo-500 md:-translate-x-1/2 mt-1.5 z-10 flex-shrink-0" />
-              <div className="ml-4 md:ml-0 flex-1 md:flex md:justify-center md:gap-8">
-                {index % 2 === 1 && <div className="hidden md:block flex-1" />}
-                <div
-                  className={`bg-white rounded-2xl p-6 shadow-lg border border-gray-100 ${
-                    index % 2 === 0 ? 'md:mr-auto md:max-w-[calc(50%-2rem)]' : 'md:ml-auto md:max-w-[calc(50%-2rem)]'
-                  }`}
+          <div className="space-y-12">
+            {experiences.map((exp, i) => (
+              <motion.div
+                key={exp.role + exp.company}
+                custom={i}
+                variants={itemVariants}
+                initial="hidden"
+                animate={isInView ? 'visible' : 'hidden'}
+                className="relative pl-12 md:pl-20"
+              >
+                {/* Timeline node */}
+                <div className="absolute left-2 md:left-6 top-1 w-4 h-4 rounded-full bg-indigo-500 border-4 border-zinc-900" />
+
+                <motion.div
+                className="p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 transition-colors"
+                  whileHover={{ x: 4, transition: { duration: 0.2 } }}
                 >
-                  <span className="text-sm font-medium text-indigo-600">{exp.date}</span>
-                  <h3 className="mt-2 text-xl font-bold text-gray-900">{exp.role}</h3>
-                  <p className="text-gray-600 font-medium">{exp.company}</p>
-                  <p className="mt-3 text-gray-600">{exp.description}</p>
-                </div>
-                {index % 2 === 0 && <div className="hidden md:block flex-1" />}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                  <span className="text-indigo-400 text-sm font-medium">
+                    {exp.date}
+                  </span>
+                  <h3 className="text-xl font-semibold text-white mt-1 mb-2">
+                    {exp.role}
+                  </h3>
+                  <p className="text-indigo-300 font-medium mb-3">{exp.company}</p>
+                  <p className="text-zinc-400 text-sm leading-relaxed">
+                    {exp.description}
+                  </p>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

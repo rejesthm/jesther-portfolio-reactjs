@@ -1,19 +1,25 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { SiGithub } from 'react-icons/si'
-import { FaLinkedin } from 'react-icons/fa6'
-import { HiMail } from 'react-icons/hi'
+import { useState, useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+
+const links = [
+  { icon: FaEnvelope, label: 'Email', href: 'mailto:hello@example.com', value: 'hello@example.com' },
+  { icon: FaGithub, label: 'GitHub', href: 'https://github.com', value: 'github.com/username' },
+  { icon: FaLinkedin, label: 'LinkedIn', href: 'https://linkedin.com', value: 'linkedin.com/in/username' },
+]
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' })
   const [errors, setErrors] = useState({})
 
   const validate = () => {
     const newErrors = {}
-    if (!formData.name.trim()) newErrors.name = 'Name is required'
-    if (!formData.email.trim()) newErrors.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Invalid email'
-    if (!formData.message.trim()) newErrors.message = 'Message is required'
+    if (!formState.name.trim()) newErrors.name = 'Name is required'
+    if (!formState.email.trim()) newErrors.email = 'Email is required'
+    else if (!/\S+@\S+\.\S+/.test(formState.email)) newErrors.email = 'Invalid email'
+    if (!formState.message.trim()) newErrors.message = 'Message is required'
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -21,131 +27,139 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!validate()) return
-    console.log('Form submitted:', formData)
-    setFormData({ name: '', email: '', message: '' })
-    setErrors({})
+    // Placeholder - would integrate with backend
+    console.log('Form submitted:', formState)
+    setFormState({ name: '', email: '', message: '' })
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormState((prev) => ({ ...prev, [name]: value }))
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
-  const links = [
-    { href: 'mailto:your.email@example.com', icon: HiMail, label: 'your.email@example.com' },
-    { href: 'https://github.com', icon: SiGithub, label: 'GitHub' },
-    { href: 'https://linkedin.com', icon: FaLinkedin, label: 'LinkedIn' },
-  ]
-
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
+    <section
+      id="contact"
+      ref={ref}
+      className="py-24 px-6 md:px-12 lg:px-24"
+    >
+      <div className="max-w-7xl mx-auto">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-white mb-4"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Get in Touch</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Have a project in mind or want to connect? I&apos;d love to hear from you.
-          </p>
-        </motion.div>
+          Get in Touch
+        </motion.h2>
+        <motion.p
+          className="text-zinc-400 mb-12 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          Have a project in mind or want to connect? I&apos;d love to hear from you.
+        </motion.p>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact info */}
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Contact links */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
             className="space-y-6"
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-xl font-semibold text-gray-900">Contact Info</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Connect with me
+            </h3>
             {links.map((link) => (
-              <motion.a
+              <a
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                whileHover={{ x: 4 }}
-                className="flex items-center gap-3 text-gray-600 hover:text-indigo-600 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-colors group"
               >
-                <link.icon className="w-6 h-6 flex-shrink-0" />
-                <span>{link.label}</span>
-              </motion.a>
+                <link.icon className="text-2xl text-indigo-400 group-hover:scale-110 transition-transform" />
+                <div>
+                  <div className="flex font-medium text-white">{link.label}</div>
+                  <div className="text-sm text-zinc-400">{link.value}</div>
+                </div>
+              </a>
             ))}
           </motion.div>
 
           {/* Contact form */}
           <motion.form
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+            className="space-y-6"
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2 rounded-lg border ${
-                    errors.name ? 'border-red-500' : 'border-gray-200'
-                  } focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
-                  placeholder="Your name"
-                />
-                {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2 rounded-lg border ${
-                    errors.email ? 'border-red-500' : 'border-gray-200'
-                  } focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition`}
-                  placeholder="your@email.com"
-                />
-                {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className={`w-full px-4 py-2 rounded-lg border ${
-                    errors.message ? 'border-red-500' : 'border-gray-200'
-                  } focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none`}
-                  placeholder="Your message..."
-                />
-                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
-              </div>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
-              >
-                Send Message
-              </motion.button>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Send a message
+            </h3>
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-zinc-400 mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formState.name}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                placeholder="Your name"
+              />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+              )}
             </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formState.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                placeholder="you@example.com"
+              />
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-zinc-400 mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formState.message}
+                onChange={handleChange}
+                rows={4}
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors resize-none"
+                placeholder="Your message..."
+              />
+              {errors.message && (
+                <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+              )}
+            </div>
+            <motion.button
+              type="submit"
+              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Send Message
+            </motion.button>
           </motion.form>
         </div>
       </div>

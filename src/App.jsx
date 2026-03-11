@@ -1,15 +1,20 @@
+import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
-import Footer from './components/Footer'
 
-function App() {
+function AppContent() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <>
       <Navbar />
       <Home />
-      <Footer />
-    </div>
+    </>
   )
 }
 
-export default App
+export default function App() {
+  return (
+    <MotionConfig reducedMotion="user">
+      <AppContent />
+    </MotionConfig>
+  )
+}

@@ -1,23 +1,22 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
-  SiReact,
-  SiFlutter,
-  SiNodedotjs,
-  SiFirebase,
-  SiDocker,
-  SiPython,
-} from 'react-icons/si'
-import { FaAws } from 'react-icons/fa6'
+  FaReact,
+  FaNodeJs,
+  FaDocker,
+  FaPython,
+  FaAws,
+} from 'react-icons/fa'
+import { SiFlutter, SiFirebase } from 'react-icons/si'
 
 const technologies = [
-  { name: 'React', icon: SiReact, color: 'text-[#61DAFB]' },
-  { name: 'Flutter', icon: SiFlutter, color: 'text-[#02569B]' },
-  { name: 'Node.js', icon: SiNodedotjs, color: 'text-[#339933]' },
-  { name: 'Firebase', icon: SiFirebase, color: 'text-[#FFCA28]' },
-  { name: 'Docker', icon: SiDocker, color: 'text-[#2496ED]' },
-  { name: 'AWS', icon: FaAws, color: 'text-[#FF9900]' },
-  { name: 'Python', icon: SiPython, color: 'text-[#3776AB]' },
+  { name: 'React', icon: FaReact, color: 'text-cyan-400' },
+  { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400' },
+  { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500' },
+  { name: 'Firebase', icon: SiFirebase, color: 'text-amber-400' },
+  { name: 'Docker', icon: FaDocker, color: 'text-blue-500' },
+  { name: 'AWS', icon: FaAws, color: 'text-orange-600' },
+  { name: 'Python', icon: FaPython, color: 'text-yellow-400' },
 ]
 
 const containerVariants = {
@@ -26,7 +25,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.08,
-      delayChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 }
@@ -36,45 +35,55 @@ const itemVariants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.4 },
+    transition: { type: 'spring', stiffness: 100, damping: 20 },
   },
 }
 
 export default function TechStack() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section
+      id="tech"
+      ref={ref}
+      className="py-24 px-6 md:px-12 lg:px-24"
+    >
       <div className="max-w-7xl mx-auto">
-        <motion.div
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-white mb-4"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Tech Stack</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life.
-          </p>
-        </motion.div>
+          Tech Stack
+        </motion.h2>
+        <motion.p
+          className="text-zinc-400 mb-12 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          Technologies I work with to build modern applications.
+        </motion.p>
 
         <motion.div
-          ref={ref}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-wrap justify-center gap-6"
         >
           {technologies.map((tech) => (
             <motion.div
               key={tech.name}
               variants={itemVariants}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="flex flex-col items-center gap-3 p-6 bg-white rounded-2xl shadow-lg border border-gray-100 min-w-[120px]"
+              className="flex flex-col items-center p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-colors"
+              whileHover={{ y: -6, scale: 1.05, transition: { duration: 0.2 } }}
             >
-              <tech.icon className={`w-12 h-12 ${tech.color}`} />
-              <span className="font-medium text-gray-700">{tech.name}</span>
+              <tech.icon className={`text-4xl mb-2 ${tech.color}`} />
+              <span className="text-sm font-medium text-zinc-300">
+                {tech.name}
+              </span>
             </motion.div>
           ))}
         </motion.div>
