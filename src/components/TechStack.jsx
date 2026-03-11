@@ -108,7 +108,7 @@ export default function TechStack() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h3 className="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-6">
+            <h3 className="text-sm font-semibold gradient-text uppercase tracking-wider mb-6">
               {category}
             </h3>
             <motion.div
@@ -123,10 +123,10 @@ export default function TechStack() {
                   <motion.div
                     key={tech.name}
                     variants={itemVariants}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-all group"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 hover:bg-zinc-800/80 transition-all group"
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   >
-                    <div className="flex-shrink-0 p-2 rounded-lg bg-zinc-900/50 group-hover:bg-indigo-500/10 transition-colors">
+                    <div className="flex-shrink-0 p-2 rounded-lg bg-zinc-900/50 group-hover:bg-violet-500/20 transition-colors">
                       <tech.icon className={`text-2xl ${tech.color}`} />
                     </div>
                     <span className="text-sm font-medium text-zinc-300 truncate">

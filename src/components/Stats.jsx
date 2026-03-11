@@ -49,10 +49,10 @@ export default function Stats() {
             <motion.div
               key={stat.label}
               variants={itemVariants}
-              className="p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-colors"
+              className="p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 hover:bg-zinc-800/80 transition-colors"
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
-              <div className="text-3xl md:text-4xl font-bold text-indigo-400 mb-1">
+              <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">
                 {stat.value}
               </div>
               <div className="text-zinc-400 text-sm md:text-base">

@@ -10,6 +10,33 @@
   --font-display: "Inter", system-ui, sans-serif;
 }
 
+/* Gradient utilities for contrast against dark theme */
+.gradient-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+}
+
+.gradient-border {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899) border-box;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover variant for gradient text on links */
+a.hover-gradient-text:hover,
+button.hover-gradient-text:hover {
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 html {
   scroll-behavior: smooth;
 }

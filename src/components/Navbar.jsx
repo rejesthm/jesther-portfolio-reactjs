@@ -41,7 +41,7 @@ export default function Navbar() {
               <motion.button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className="text-zinc-400 hover:text-white transition-colors font-medium"
+                className="text-zinc-400 hover-gradient-text transition-colors font-medium"
                 whileHover={{ y: -1 }}
               >
                 {link.label}
@@ -101,7 +101,7 @@ export default function Navbar() {
                 <motion.button
                   key={link.href}
                   onClick={() => scrollToSection(link.href)}
-                  className="text-2xl font-medium text-white hover:text-indigo-400 transition-colors"
+                  className="text-2xl font-medium text-white hover-gradient-text transition-colors"
                   whileTap={{ scale: 0.98 }}
                 >
                   {link.label}

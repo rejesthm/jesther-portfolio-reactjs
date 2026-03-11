@@ -7,7 +7,7 @@ const lines = [
   { prefix: '>', text: 'Building for production...', color: 'text-zinc-500' },
   { prefix: '✓', text: 'Compiled successfully', color: 'text-emerald-400' },
   { prefix: '>', text: 'portfolio@1.0.0 build', color: 'text-zinc-500' },
-  { prefix: '$', text: 'Ready to ship', color: 'text-indigo-400' },
+  { prefix: '$', text: 'Ready to ship', color: 'gradient-text' },
 ]
 
 function TerminalTyping({ shouldReduceMotion }) {
@@ -46,7 +46,7 @@ function TerminalTyping({ shouldReduceMotion }) {
     <div className="space-y-3">
       {lines.map((line, i) => (
         <div key={i} className="font-mono text-sm flex items-start gap-2">
-          <span className="text-indigo-400 flex-shrink-0">{line.prefix}</span>
+          <span className="gradient-text flex-shrink-0">{line.prefix}</span>
           <span className={line.color}>
             {i < lineIndex
               ? line.text
@@ -57,7 +57,7 @@ function TerminalTyping({ shouldReduceMotion }) {
               <motion.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ repeat: Infinity, duration: 0.7 }}
-                className="inline-block w-2 h-4 ml-0.5 bg-indigo-400 align-middle"
+                className="inline-block w-2 h-4 ml-0.5 bg-gradient-to-b from-indigo-400 to-violet-500 align-middle"
               />
             )}
           </span>
@@ -115,7 +115,7 @@ export default function FloatingElements() {
         </div>
         <div className="px-5 py-4 border-t border-zinc-800 bg-zinc-900/50">
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-indigo-400 font-medium">$</span>
+            <span className="gradient-text font-medium">$</span>
             <span className="text-zinc-500">Ready to build something?</span>
           </div>
         </div>

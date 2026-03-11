@@ -12,7 +12,7 @@ export default function Footer() {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 hover:text-indigo-400 transition-colors"
+            className="text-zinc-400 hover-gradient-text transition-colors"
             aria-label="GitHub"
           >
             <FaGithub size={22} />
@@ -21,7 +21,7 @@ export default function Footer() {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 hover:text-indigo-400 transition-colors"
+            className="text-zinc-400 hover-gradient-text transition-colors"
             aria-label="LinkedIn"
           >
             <FaLinkedin size={22} />

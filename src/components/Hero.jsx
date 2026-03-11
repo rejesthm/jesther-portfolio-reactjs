@@ -38,7 +38,7 @@ export default function Hero() {
         >
           <motion.p
             variants={itemVariants}
-            className="text-indigo-400 font-medium mb-2"
+            className="gradient-text font-medium mb-2"
           >
             Hi, I&apos;m
           </motion.p>
@@ -50,7 +50,7 @@ export default function Hero() {
           </motion.h1>
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-indigo-300 font-semibold mb-4"
+            className="text-xl md:text-2xl gradient-text font-semibold mb-4"
           >
             Software Engineer
           </motion.p>
@@ -67,7 +67,7 @@ export default function Hero() {
           >
             <motion.button
               onClick={() => scrollToSection('projects')}
-              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
+              className="px-6 py-3 rounded-lg gradient-primary text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -75,7 +75,7 @@ export default function Hero() {
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('contact')}
-              className="px-6 py-3 rounded-lg border border-zinc-600 hover:border-indigo-500 hover:bg-indigo-500/10 text-white font-medium transition-colors"
+              className="px-6 py-3 rounded-lg gradient-border text-white font-medium hover:opacity-90 transition-all"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

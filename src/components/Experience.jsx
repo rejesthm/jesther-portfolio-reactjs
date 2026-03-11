@@ -79,19 +79,19 @@ export default function Experience() {
                 className="relative pl-12 md:pl-20"
               >
                 {/* Timeline node */}
-                <div className="absolute left-2 md:left-6 top-1 w-4 h-4 rounded-full bg-indigo-500 border-4 border-zinc-900" />
+                <div className="absolute left-2 md:left-6 top-1 w-4 h-4 rounded-full gradient-primary border-4 border-zinc-900" />
 
                 <motion.div
-                className="p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 transition-colors"
+                  className="p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors"
                   whileHover={{ x: 4, transition: { duration: 0.2 } }}
                 >
-                  <span className="text-indigo-400 text-sm font-medium">
+                  <span className="gradient-text text-sm font-medium">
                     {exp.date}
                   </span>
                   <h3 className="text-xl font-semibold text-white mt-1 mb-2">
                     {exp.role}
                   </h3>
-                  <p className="text-indigo-300 font-medium mb-3">{exp.company}</p>
+                  <p className="gradient-text font-medium mb-3">{exp.company}</p>
                   <p className="text-zinc-400 text-sm leading-relaxed">
                     {exp.description}
                   </p>

@@ -79,9 +79,9 @@ export default function Contact() {
                 href={link.href}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="flex items-center gap-4 p-4 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-lg bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 hover:bg-zinc-800/80 transition-colors group"
               >
-                <link.icon className="text-2xl text-indigo-400 group-hover:scale-110 transition-transform" />
+                <link.icon className="text-2xl gradient-text group-hover:scale-110 transition-transform" />
                 <div>
                   <div className="flex font-medium text-white">{link.label}</div>
                   <div className="text-sm text-zinc-400">{link.value}</div>
@@ -111,7 +111,7 @@ export default function Contact() {
                 name="name"
                 value={formState.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 outline-none transition-colors"
                 placeholder="Your name"
               />
               {errors.name && (
@@ -128,7 +128,7 @@ export default function Contact() {
                 name="email"
                 value={formState.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 outline-none transition-colors"
                 placeholder="you@example.com"
               />
               {errors.email && (
@@ -145,7 +145,7 @@ export default function Contact() {
                 value={formState.message}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors resize-none"
+                className="w-full px-4 py-3 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-white placeholder-zinc-500 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 outline-none transition-colors resize-none"
                 placeholder="Your message..."
               />
               {errors.message && (
@@ -154,7 +154,7 @@ export default function Contact() {
             </div>
             <motion.button
               type="submit"
-              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
+              className="px-6 py-3 rounded-lg gradient-primary text-white font-medium shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

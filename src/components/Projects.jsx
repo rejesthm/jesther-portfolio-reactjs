@@ -87,7 +87,7 @@ export default function Projects() {
             <motion.article
               key={project.title}
               variants={cardVariants}
-              className="group rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 transition-colors"
+              className="group rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors"
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <div className="relative overflow-hidden aspect-video">
@@ -110,7 +110,7 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 rounded text-xs bg-indigo-500/20 text-indigo-300"
+                      className="px-2 py-0.5 rounded text-xs bg-gradient-to-r from-indigo-500/20 to-violet-500/20 text-violet-300"
                     >
                       {t}
                     </span>
@@ -121,7 +121,7 @@ export default function Projects() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-zinc-400 hover:text-indigo-400 transition-colors text-sm"
+                    className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
                   >
                     <FaGithub size={18} />
                     GitHub
@@ -130,7 +130,7 @@ export default function Projects() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-zinc-400 hover:text-indigo-400 transition-colors text-sm"
+                    className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
                   >
                     <FaExternalLinkAlt size={14} />
                     Live Demo
