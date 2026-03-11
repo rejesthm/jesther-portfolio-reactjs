@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Light theme - professional SaaS palette */
+:root {
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #F5F5F5;
+  --text-primary: #1A1A1A;
+  --text-muted: #6B7280;
+  --accent-start: #6366F1;
+  --accent-end: #8B5CF6;
+  --card-bg: #FFFFFF;
+  --border: #E5E7EB;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Smooth scroll offset for fixed navbar */
+section[id] {
+  scroll-margin-top: 5rem;
+}
