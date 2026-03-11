@@ -74,9 +74,10 @@ export default function Stats() {
     <SectionReveal
       id="stats"
       ref={ref}
-      className="py-24 px-6 md:px-12 lg:px-24"
+      className="relative py-24 px-6 md:px-12 lg:px-24 bg-zinc-900/40"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" aria-hidden />
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
