@@ -1,40 +1,73 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { FaReact, FaNodeJs, FaPython, FaAws } from 'react-icons/fa'
 import {
-  FaReact,
-  FaNodeJs,
-  FaDocker,
-  FaPython,
-  FaAws,
-} from 'react-icons/fa'
-import { SiFlutter, SiFirebase } from 'react-icons/si'
+  SiFlutter,
+  SiJavascript,
+  SiTypescript,
+  SiAngular,
+  SiLaravel,
+  SiMongodb,
+  SiFirebase,
+  SiDocker,
+  SiTensorflow,
+  SiOpenai,
+  SiPostgresql,
+  SiMysql,
+  SiVuedotjs,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiPytorch,
+  SiScikitlearn,
+} from 'react-icons/si'
 
 const technologies = [
-  { name: 'React', icon: FaReact, color: 'text-cyan-400' },
-  { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400' },
-  { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500' },
-  { name: 'Firebase', icon: SiFirebase, color: 'text-amber-400' },
-  { name: 'Docker', icon: FaDocker, color: 'text-blue-500' },
-  { name: 'AWS', icon: FaAws, color: 'text-orange-600' },
-  { name: 'Python', icon: FaPython, color: 'text-yellow-400' },
+  // Frontend
+  { name: 'React', icon: FaReact, color: 'text-cyan-400', category: 'Frontend' },
+  { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400', category: 'Frontend' },
+  { name: 'Vue.js', icon: SiVuedotjs, color: 'text-emerald-400', category: 'Frontend' },
+  { name: 'Angular', icon: SiAngular, color: 'text-red-500', category: 'Frontend' },
+  { name: 'Next.js', icon: SiNextdotjs, color: 'text-white', category: 'Frontend' },
+  { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-500', category: 'Frontend' },
+  { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-400', category: 'Frontend' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-cyan-300', category: 'Frontend' },
+  // Backend
+  { name: 'Node.js', icon: FaNodeJs, color: 'text-green-500', category: 'Backend' },
+  { name: 'Python', icon: FaPython, color: 'text-yellow-400', category: 'Backend' },
+  { name: 'Laravel', icon: SiLaravel, color: 'text-red-500', category: 'Backend' },
+  // Databases
+  { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600', category: 'Database' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-600', category: 'Database' },
+  { name: 'MySQL', icon: SiMysql, color: 'text-orange-500', category: 'Database' },
+  { name: 'Firebase', icon: SiFirebase, color: 'text-amber-400', category: 'Database' },
+  // Cloud & DevOps
+  { name: 'AWS', icon: FaAws, color: 'text-orange-600', category: 'Cloud' },
+  { name: 'Docker', icon: SiDocker, color: 'text-blue-500', category: 'Cloud' },
+  // AI & ML
+  { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-500', category: 'AI/ML' },
+  { name: 'PyTorch', icon: SiPytorch, color: 'text-red-500', category: 'AI/ML' },
+  { name: 'scikit-learn', icon: SiScikitlearn, color: 'text-amber-500', category: 'AI/ML' },
+  { name: 'OpenAI', icon: SiOpenai, color: 'text-emerald-400', category: 'AI/ML' },
 ]
+
+const categories = ['Frontend', 'Backend', 'Database', 'Cloud', 'AI/ML']
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
+      staggerChildren: 0.04,
+      delayChildren: 0.05,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: { type: 'spring', stiffness: 100, damping: 20 },
   },
 }
@@ -64,29 +97,46 @@ export default function TechStack() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Technologies I work with to build modern applications.
+          Technologies and frameworks I work with to build modern applications, from frontend to AI/ML.
         </motion.p>
 
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {technologies.map((tech) => (
+        {categories.map((category) => (
+          <motion.div
+            key={category}
+            className="mb-12 last:mb-0"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <h3 className="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-6">
+              {category}
+            </h3>
             <motion.div
-              key={tech.name}
-              variants={itemVariants}
-              className="flex flex-col items-center p-6 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-colors"
-              whileHover={{ y: -6, scale: 1.05, transition: { duration: 0.2 } }}
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+              variants={containerVariants}
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
             >
-              <tech.icon className={`text-4xl mb-2 ${tech.color}`} />
-              <span className="text-sm font-medium text-zinc-300">
-                {tech.name}
-              </span>
+              {technologies
+                .filter((tech) => tech.category === category)
+                .map((tech) => (
+                  <motion.div
+                    key={tech.name}
+                    variants={itemVariants}
+                    className="flex items-center gap-4 p-4 rounded-xl bg-zinc-800/50 border border-zinc-700/50 hover:border-indigo-500/30 hover:bg-zinc-800/80 transition-all group"
+                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  >
+                    <div className="flex-shrink-0 p-2 rounded-lg bg-zinc-900/50 group-hover:bg-indigo-500/10 transition-colors">
+                      <tech.icon className={`text-2xl ${tech.color}`} />
+                    </div>
+                    <span className="text-sm font-medium text-zinc-300 truncate">
+                      {tech.name}
+                    </span>
+                  </motion.div>
+                ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </motion.div>
+        ))}
       </div>
     </section>
   )
