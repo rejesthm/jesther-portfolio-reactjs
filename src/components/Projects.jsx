@@ -1,48 +1,25 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
-import LazyImage from './LazyImage'
+import { useRef, useState } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import ProjectImageCarousel from './ProjectImageCarousel'
+import ProjectModal from './ProjectModal'
 import SectionReveal from './SectionReveal'
+import { projects } from '../data/projects'
 import { staggerContainer, staggerItem, inViewOptions } from '../utils/animations'
-
-const projects = [
-  {
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with real-time inventory, payment integration, and admin dashboard.',
-    image: 'https://placehold.co/600x400/1e1b4b/6366f1?text=Project+1',
-    tech: ['React', 'Node.js', 'PostgreSQL'],
-    github: 'https://github.com',
-    demo: 'https://example.com',
-  },
-  {
-    title: 'Task Management App',
-    description: 'Collaborative task management with real-time updates, drag-and-drop, and team workspaces.',
-    image: 'https://placehold.co/600x400/1e1b4b/6366f1?text=Project+2',
-    tech: ['React', 'Firebase', 'Tailwind'],
-    github: 'https://github.com',
-    demo: 'https://example.com',
-  },
-  {
-    title: 'Analytics Dashboard',
-    description: 'Data visualization dashboard with customizable widgets, export features, and real-time metrics.',
-    image: 'https://placehold.co/600x400/1e1b4b/6366f1?text=Project+3',
-    tech: ['React', 'D3.js', 'AWS'],
-    github: 'https://github.com',
-    demo: 'https://example.com',
-  },
-]
 
 export default function Projects() {
   const ref = useRef(null)
   const isInView = useInView(ref, inViewOptions)
+  const [selectedProject, setSelectedProject] = useState(null)
 
   return (
+    <>
     <SectionReveal
       id="projects"
       ref={ref}
-      className="py-24 px-6 md:px-12 lg:px-24"
+      className="relative py-24 px-6 md:px-12 lg:px-24 bg-zinc-900/40"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" aria-hidden />
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.h2
           className="text-3xl md:text-4xl font-bold text-white mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +38,7 @@ export default function Projects() {
         </motion.p>
 
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
@@ -70,64 +47,40 @@ export default function Projects() {
             <motion.article
               key={project.title}
               variants={staggerItem}
-              className="group rounded-xl overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors"
+              className="group rounded-lg overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors cursor-pointer"
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              onClick={() => setSelectedProject(project)}
             >
-              <div className="relative overflow-hidden aspect-video">
-                <LazyImage
-                  src={project.image}
-                  alt={project.title}
-                  className="group-hover:scale-105 transition-transform duration-500"
-                  fetchPriority="low"
+              <div className="relative overflow-hidden">
+                <ProjectImageCarousel
+                  images={project.images}
+                  title={project.title}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-t-lg" />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2">
+              <div className="p-3">
+                <h3 className="text-sm font-semibold text-white mb-1">
                   {project.title}
                 </h3>
-                <p className="text-zinc-400 text-sm mb-4 line-clamp-2">
+                <p className="text-zinc-400 text-[10px] leading-tight line-clamp-2">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded text-xs bg-gradient-to-r from-indigo-500/20 to-violet-500/20 text-violet-300"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-4">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
-                    whileHover={{ scale: 1.05, x: 2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FaGithub size={18} />
-                    GitHub
-                  </motion.a>
-                  <motion.a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-zinc-400 hover-gradient-text transition-colors text-sm"
-                    whileHover={{ scale: 1.05, x: 2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FaExternalLinkAlt size={14} />
-                    Live Demo
-                  </motion.a>
-                </div>
               </div>
             </motion.article>
           ))}
         </motion.div>
       </div>
     </SectionReveal>
+
+    <AnimatePresence mode="wait">
+      {selectedProject && (
+        <ProjectModal
+          key={selectedProject.title}
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
+    </AnimatePresence>
+    </>
   )
 }

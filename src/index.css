@@ -46,3 +46,29 @@ body {
   background-color: var(--color-surface);
   color: #fafafa;
 }
+
+/* Modal scrollbar - theme colors with contrast */
+.scrollbar-theme {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #27272a;
+}
+
+.scrollbar-theme::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-theme::-webkit-scrollbar-track {
+  background: #27272a;
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  border-radius: 4px;
+  border: 2px solid #27272a;
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%);
+}

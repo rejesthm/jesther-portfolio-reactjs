@@ -60,7 +60,7 @@ export default function Hero() {
             variants={staggerItem}
             className="text-xl md:text-2xl gradient-text font-semibold mb-4"
           >
-            Software Engineer
+            AI Fullstack Software Engineer
           </motion.p>
           <motion.p
             variants={staggerItem}

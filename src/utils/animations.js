@@ -81,6 +81,6 @@ export const sectionReveal = {
 /** useInView options for consistent scroll trigger points */
 export const inViewOptions = {
   once: true,
-  margin: '-80px',
-  amount: 0.2,
+  margin: '0px',
+  amount: 0.1,
 }
