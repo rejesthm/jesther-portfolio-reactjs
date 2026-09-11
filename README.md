@@ -1,15 +1,15 @@
 # Portfolio | Software Engineer
 
-A modern, light-themed React portfolio website with professional SaaS-style landing page animations. Built with Vite, TailwindCSS, and Framer Motion.
+A dark vCard-style React portfolio with a sticky profile sidebar, tabbed content panels, and compact portfolio sections. Built with Vite, TailwindCSS, Framer Motion, and Vitest.
 
 ## Features
 
-- **Hero Section**: Large headline, tagline, CTA buttons, and floating UI elements with parallax
-- **Stats Section**: Animated metric cards (Years Experience, Projects, Technologies, Clients)
-- **Projects Section**: Grid of portfolio projects with images, tech stack, and links
-- **Tech Stack Section**: Animated technology icons (React, Flutter, Node.js, Firebase, Docker, AWS, Python)
-- **Experience Section**: Timeline layout with animated reveal
-- **Contact Section**: Contact info and form with validation
+- **Profile Sidebar**: Name, title, contact links, social links, and compact stats
+- **Tabbed Shell**: About, Resume, Portfolio, and Contact panels
+- **About Panel**: Intro copy, CTA buttons, work cues, and full stats
+- **Resume Panel**: Experience timeline and tech stack
+- **Portfolio Panel**: Project cards with images, tech tags, GitHub links, and live demo links
+- **Contact Panel**: Contact links and a validated contact form
 
 ## Tech Stack
 
@@ -18,6 +18,8 @@ A modern, light-themed React portfolio website with professional SaaS-style land
 - TailwindCSS
 - Framer Motion
 - react-icons
+- Vitest
+- Testing Library
 
 ## Run Locally
 
@@ -35,22 +37,21 @@ npm run build
 npm run preview
 ```
 
+## Test
+
+```bash
+npm test
+npm run lint
+```
+
 ## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── Navbar.jsx
-│   ├── Hero.jsx
-│   ├── FloatingElements.jsx
-│   ├── Stats.jsx
-│   ├── Projects.jsx
-│   ├── TechStack.jsx
-│   ├── Experience.jsx
-│   ├── Contact.jsx
-│   └── Footer.jsx
-├── pages/
-│   └── Home.jsx
+│   └── VCardPortfolio.jsx
+├── App.test.jsx
+├── setupTests.js
 ├── App.jsx
 ├── main.jsx
 └── index.css
@@ -58,7 +59,5 @@ src/
 
 ## Customization
 
-- Update your name, role, and tagline in `src/components/Hero.jsx`
-- Replace placeholder project data in `src/components/Projects.jsx`
-- Update experience entries in `src/components/Experience.jsx`
-- Add your email and social links in `src/components/Contact.jsx` and `src/components/Footer.jsx`
+- Update your name, role, tagline, stats, project data, tech stack, experience entries, and contact links in `src/components/VCardPortfolio.jsx`.
+- Keep design-token changes aligned with `DESIGN.md`.

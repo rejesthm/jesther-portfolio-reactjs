@@ -1,15 +1,7 @@
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Footer from './components/Footer'
+import VCardPortfolio from './components/VCardPortfolio'
 
 function App() {
-  return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Navbar />
-      <Home />
-      <Footer />
-    </div>
-  )
+  return <VCardPortfolio />
 }
 
 export default App
