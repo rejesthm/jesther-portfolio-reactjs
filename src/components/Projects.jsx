@@ -1,86 +1,116 @@
-import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import ProjectImageCarousel from './ProjectImageCarousel'
+import { useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { FaArrowRight } from 'react-icons/fa'
 import ProjectModal from './ProjectModal'
-import SectionReveal from './SectionReveal'
+import { BrowserPreview, PhonePreview } from './ProjectPreviewFrames'
 import { projects } from '../data/projects'
-import { staggerContainer, staggerItem, inViewOptions } from '../utils/animations'
+import { getProjectCategories } from '../utils/projectMetadata'
+
+const filters = ['All', 'Mobile', 'Website', 'Automation']
+
+function getProjectSummary(description) {
+  return description.length > 148 ? `${description.slice(0, 148).trim()}...` : description
+}
 
 export default function Projects() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, inViewOptions)
+  const [activeFilter, setActiveFilter] = useState('All')
   const [selectedProject, setSelectedProject] = useState(null)
+
+  const visibleProjects = useMemo(() => {
+    if (activeFilter === 'All') return projects
+    return projects.filter((project) => getProjectCategories(project).includes(activeFilter))
+  }, [activeFilter])
 
   return (
     <>
-    <SectionReveal
-      id="projects"
-      ref={ref}
-      className="relative py-24 px-6 md:px-12 lg:px-24 bg-zinc-900/40"
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" aria-hidden />
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold text-white mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          Featured Projects
-        </motion.h2>
-        <motion.p
-          className="text-zinc-400 mb-12 max-w-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          A selection of projects I&apos;ve worked on recently.
-        </motion.p>
+      <section>
+        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <p className="text-sm leading-6 text-[var(--color-light-gray)]">
+            A complete gallery of mobile-first products, production apps, and platform work I&apos;ve helped ship.
+          </p>
+          <p className="shrink-0 rounded-xl border border-[var(--color-border)] bg-[rgba(43,43,45,0.58)] px-3 py-2 text-xs font-medium text-[var(--color-accent)]">
+            Showing {visibleProjects.length} of {projects.length}
+          </p>
+        </div>
 
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {projects.map((project) => (
-            <motion.article
-              key={project.title}
-              variants={staggerItem}
-              className="group rounded-lg overflow-hidden bg-zinc-800/50 border border-zinc-700/50 hover:border-violet-500/50 transition-colors cursor-pointer"
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              onClick={() => setSelectedProject(project)}
+        <div className="portfolio-filter-bar mb-8">
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              className={`filter-pill ${activeFilter === filter ? 'is-active' : ''}`}
+              onClick={() => setActiveFilter(filter)}
             >
-              <div className="relative overflow-hidden">
-                <ProjectImageCarousel
-                  images={project.images}
-                  title={project.title}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-t-lg" />
-              </div>
-              <div className="p-3">
-                <h3 className="text-sm font-semibold text-white mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-zinc-400 text-[10px] leading-tight line-clamp-2">
-                  {project.description}
-                </p>
-              </div>
-            </motion.article>
+              {filter}
+            </button>
           ))}
-        </motion.div>
-      </div>
-    </SectionReveal>
+        </div>
 
-    <AnimatePresence mode="wait">
-      {selectedProject && (
-        <ProjectModal
-          key={selectedProject.title}
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
-    </AnimatePresence>
+        <motion.div layout className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {visibleProjects.map((project) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                onInspect={() => setSelectedProject(project)}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </section>
+
+      <AnimatePresence mode="wait">
+        {selectedProject && (
+          <ProjectModal
+            key={selectedProject.title}
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </>
+  )
+}
+
+function ProjectCard({ project, onInspect }) {
+  const categories = getProjectCategories(project)
+  const usesWidePreview = categories.some((category) => ['Website', 'Automation'].includes(category))
+
+  return (
+    <motion.article
+      layout
+      className={`project-card project-device-card group ${usesWidePreview ? 'project-website-card' : ''}`}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className={`project-device-stage ${usesWidePreview ? 'project-browser-stage' : ''}`}>
+        <div className="project-card-glow" aria-hidden />
+        {usesWidePreview ? (
+          <BrowserPreview project={project} />
+        ) : (
+          <PhonePreview project={project} />
+        )}
+      </div>
+
+      <div className="project-card-body">
+        <h2 className="mb-4 text-xl font-semibold leading-tight text-neutral-50">
+          {project.title}
+        </h2>
+
+        <p className="project-summary">{getProjectSummary(project.description)}</p>
+
+        <button
+          type="button"
+          className="project-open-button"
+          onClick={onInspect}
+          aria-label={`View ${project.title} details`}
+        >
+          Inspect project
+          <FaArrowRight aria-hidden />
+        </button>
+      </div>
+    </motion.article>
   )
 }

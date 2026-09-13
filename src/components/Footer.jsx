@@ -1,42 +1,32 @@
-import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import SectionReveal from './SectionReveal'
+import { profile } from '../data/profile'
 
 export default function Footer() {
   return (
-    <SectionReveal
-      as="footer"
-      className="py-12 px-6 md:px-12 lg:px-24 border-t border-zinc-800"
-    >
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="text-zinc-500 text-sm">
-          © {new Date().getFullYear()} Your Name. All rights reserved.
-        </p>
-        <div className="flex gap-6">
-          <motion.a
-            href="https://github.com/rejesthm"
+    <footer className="border-t border-[var(--color-border)] px-5 py-5 sm:px-8 md:px-9">
+      <div className="flex flex-col gap-4 text-sm text-[var(--color-muted)] sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
+        <div className="flex items-center gap-2">
+          <a
+            href={profile.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center min-w-[44px] min-h-[44px] text-zinc-400 hover-gradient-text transition-colors"
+            className="social-button"
             aria-label="GitHub"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
           >
-            <FaGithub size={22} />
-          </motion.a>
-          <motion.a
-            href="https://www.linkedin.com/in/jesther-jordan-minor-73234813a/"
+            <FaGithub aria-hidden />
+          </a>
+          <a
+            href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center min-w-[44px] min-h-[44px] text-zinc-400 hover-gradient-text transition-colors"
+            className="social-button"
             aria-label="LinkedIn"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
           >
-            <FaLinkedin size={22} />
-          </motion.a>
+            <FaLinkedin aria-hidden />
+          </a>
         </div>
       </div>
-    </SectionReveal>
+    </footer>
   )
 }
