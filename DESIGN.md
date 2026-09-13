@@ -40,7 +40,7 @@ Dark vCard portfolio: graphite panels, warm amber accents, compact software-engi
 
 Banned in this project:
 - Purple-to-blue gradients
-- Large decorative orbs or starfield-dominant backgrounds
+- Starfield-dominant backgrounds that overpower the vCard shell
 - Reference-template placeholder content
 
 ## Motion
@@ -54,6 +54,7 @@ Banned in this project:
 
 - Desktop: two-column vCard shell, sticky profile sidebar, rounded main article card
 - Mobile: stacked profile card plus horizontal tab navigation
+- Background: keep the pre-vCard star/grid atmosphere, but restyle it as subtle graphite and amber ambient depth behind the vCard shell
 - Profile image: use `/assets/images/profile/jesther-jordan-minor.jpg` inside the vCard avatar frame
 - Reading width: cap prose at `max-w-[65ch]`
 - Touch targets: 44px minimum for tabs, links, and form controls
@@ -108,3 +109,4 @@ Banned in this project:
 2026-09-13 by Codex: merged Skills and Resume into Experiences, with Timeline first and Skills second.
 2026-09-13 by Codex: added website portfolio projects and simplified Portfolio filters to All, Mobile, and Website.
 2026-09-13 by Codex: added Automation as a Portfolio filter with workflow project descriptions and modal role badges.
+2026-09-13 by Codex: restored the previous branch's ambient star/grid background as a graphite and amber vCard backdrop.

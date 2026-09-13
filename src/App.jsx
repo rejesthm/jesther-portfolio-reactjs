@@ -1,9 +1,15 @@
 import { MotionConfig } from 'framer-motion'
+import AmbientBackdrop from './components/AmbientBackdrop'
 import Home from './pages/Home'
 
 function AppContent() {
   return (
-    <Home />
+    <>
+      <AmbientBackdrop />
+      <div className="relative z-10">
+        <Home />
+      </div>
+    </>
   )
 }
 
